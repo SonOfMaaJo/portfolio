@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { research, publications } from "../site_config";
+---
+
+<BaseLayout title="Recherche" sideBarActiveItemID="research">
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Recherche</div>
+    <p class="mt-2 opacity-80">
+      Modélisation mathématique et analyse économique appliquées aux réseaux de transport.
+    </p>
+  </div>
+
+  <div class="card bg-base-200 border border-base-300 mb-10">
+    <div class="card-body">
+      <span class="badge badge-primary">Projet en cours</span>
+      <h2 class="card-title text-2xl">{research.title}</h2>
+      <p class="opacity-70 italic">Co-écrit avec le {research.director}</p>
+      <p class="mt-2">{research.description}</p>
+      <div class="flex flex-wrap gap-2 mt-3">
+        <span class="badge badge-outline">Gale-Shapley</span>
+        <span class="badge badge-outline">Stable Matching</span>
+        <span class="badge badge-outline">Equilibrium Theory</span>
+        <span class="badge badge-outline">Île-de-France (large scale)</span>
+      </div>
+      <div class="card-actions mt-4">
+        <a href={research.pdf} target="_blank" class="btn btn-sm btn-primary">Lire le draft (PDF)</a>
+        <a href={research.code} target="_blank" class="btn btn-sm btn-outline">Code source (GitHub)</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-2xl w-full font-bold mb-4">Publications</div>
+  <div class="flex flex-col gap-4">
+    {
+      publications.map((pub) => (
+        <div class="card bg-base-200 border border-base-300 hover:border-primary transition">
+          <div class="card-body flex-row gap-4 items-start">
+            <span class="text-primary font-bold text-lg">{pub.year}</span>
+            <div>
+              <p class="font-bold">{pub.title}</p>
+              <p class="opacity-70 italic text-sm my-1">{pub.journal}</p>
+              <a href={pub.link} target="_blank" class="link link-primary text-sm font-semibold">
+                DOI: {pub.doi}
+              </a>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</BaseLayout>

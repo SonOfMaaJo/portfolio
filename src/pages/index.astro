@@ -1,0 +1,95 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HorizontalCard from "../components/HorizontalCard.astro";
+import { getCollection } from "astro:content";
+import createSlug from "../lib/createSlug";
+import { contactInfo, skills } from "../site_config";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const last_posts = posts.slice(0, 3);
+---
+
+<BaseLayout sideBarActiveItemID="home">
+  <div class="pb-12 mt-5">
+    <div class="text-xl py-1">Bonjour 👋</div>
+    <div class="text-5xl font-bold">{contactInfo.name}</div>
+    <div class="text-2xl py-3 font-bold">{contactInfo.title}</div>
+    <div class="py-2">
+      <text class="text-lg">{contactInfo.summary}</text>
+    </div>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a class="btn btn-primary" href={contactInfo.linkedin} target="_blank">Me contacter</a>
+      <a class="btn btn-outline" href="/my_cv.pdf" target="_blank">Télécharger le CV</a>
+      <a class="btn btn-ghost" href={contactInfo.github} target="_blank">GitHub</a>
+    </div>
+  </div>
+
+  <div class="text-3xl w-full font-bold mb-4">Projets en cours</div>
+
+  <div class="grid md:grid-cols-2 gap-4 mb-6">
+    <div class="card bg-base-200 border border-base-300">
+      <div class="card-body">
+        <span class="badge badge-secondary">Recherche / Mémoire</span>
+        <h2 class="card-title">Stable Matching for Ridesharing</h2>
+        <p>
+          Formalisation et dualité des systèmes de covoiturage sous la direction du Pr. André de
+          Palma.
+        </p>
+        <div class="card-actions justify-end">
+          <a href="/research" class="btn btn-sm btn-primary">Détails →</a>
+        </div>
+      </div>
+    </div>
+    <div class="card bg-base-200 border border-base-300">
+      <div class="card-body">
+        <span class="badge badge-secondary">42 Paris / Système</span>
+        <h2 class="card-title">Minishell</h2>
+        <p>Un interpréteur de commandes UNIX en C : processus, pipes, redirections et signaux.</p>
+        <div class="card-actions justify-end">
+          <a href="/projects" class="btn btn-sm btn-primary">Projets 42 →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-3xl w-full font-bold mb-4 mt-10">Compétences</div>
+  <div class="grid md:grid-cols-3 gap-4 mb-6">
+    {
+      skills.map((group) => (
+        <div class="card bg-base-200 border border-base-300">
+          <div class="card-body p-5">
+            <h2 class="card-title text-base">{group.category}</h2>
+            <div class="flex flex-wrap gap-2 mt-2">
+              {group.items.map((item) => (
+                <span class="badge badge-outline">{item}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  {
+    last_posts.length > 0 && (
+      <>
+        <div class="text-3xl w-full font-bold mb-5 mt-10">Derniers articles</div>
+        {last_posts.map((post) => (
+          <>
+            <HorizontalCard
+              title={post.data.title}
+              img={post.data.heroImage}
+              desc={post.data.description}
+              url={"/blog/" + createSlug(post.data.title, post.slug)}
+              target="_self"
+              badge={post.data.badge}
+            />
+            <div class="divider my-0" />
+          </>
+        ))}
+      </>
+    )
+  }
+</BaseLayout>

@@ -1,0 +1,78 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { projects } from "../site_config";
+
+const research = projects.filter((p) => p.type === "Recherche");
+const school = projects.filter((p) => p.type === "42 Paris");
+---
+
+<BaseLayout title="Projets" sideBarActiveItemID="projects">
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Projets</div>
+    <p class="mt-2 opacity-80">
+      Architecture logicielle, programmation système et algorithmique.
+    </p>
+  </div>
+
+  {
+    research.length > 0 && (
+      <>
+        <div class="text-2xl w-full font-bold mb-4 mt-8">Recherche</div>
+        <div class="grid md:grid-cols-2 gap-4">
+          {research.map((p) => (
+            <a
+              href={p.link}
+              target="_blank"
+              class="card bg-base-200 border border-base-300 hover:border-primary transition"
+            >
+              <div class="card-body">
+                <div class="flex items-center gap-2">
+                  <span class="badge badge-primary badge-outline">{p.type}</span>
+                  {p.status && <span class="badge badge-ghost">{p.status}</span>}
+                </div>
+                <h2 class="card-title">{p.title}</h2>
+                <p class="opacity-80">{p.description}</p>
+                <div class="flex flex-wrap gap-2 mt-2">
+                  {p.tech.map((t) => (
+                    <span class="badge badge-sm badge-outline">{t}</span>
+                  ))}
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </>
+    )
+  }
+
+  {
+    school.length > 0 && (
+      <>
+        <div class="text-2xl w-full font-bold mb-4 mt-10">École 42 Paris</div>
+        <div class="grid md:grid-cols-2 gap-4">
+          {school.map((p) => (
+            <a
+              href={p.link}
+              target="_blank"
+              class="card bg-base-200 border border-base-300 hover:border-primary transition"
+            >
+              <div class="card-body">
+                <div class="flex items-center gap-2">
+                  <span class="badge badge-secondary badge-outline">{p.type}</span>
+                  {p.status && <span class="badge badge-ghost">{p.status}</span>}
+                </div>
+                <h2 class="card-title">{p.title}</h2>
+                <p class="opacity-80">{p.description}</p>
+                <div class="flex flex-wrap gap-2 mt-2">
+                  {p.tech.map((t) => (
+                    <span class="badge badge-sm badge-outline">{t}</span>
+                  ))}
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </>
+    )
+  }
+</BaseLayout>

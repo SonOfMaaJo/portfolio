@@ -1,0 +1,74 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TimeLineElement from "../components/cv/TimeLine.astro";
+import { contactInfo, education, experience, skills, publications } from "../site_config";
+---
+
+<BaseLayout title="CV" sideBarActiveItemID="cv">
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Profil</div>
+  </div>
+
+  <div class="mb-10 text-justify">
+    {contactInfo.summary}
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Formation</div>
+  </div>
+
+  <div class="time-line-container grid gap-4 mb-10">
+    {education.map((e) => <TimeLineElement title={e.title} subtitle={e.subtitle} />)}
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Expérience</div>
+  </div>
+
+  <div class="time-line-container mb-10">
+    {
+      experience.map((x) => (
+        <TimeLineElement title={x.title} subtitle={x.subtitle}>
+          {x.desc}
+        </TimeLineElement>
+      ))
+    }
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Publications</div>
+  </div>
+
+  <ul class="list-disc mx-6 mb-10 grid gap-2">
+    {
+      publications.map((pub) => (
+        <li>
+          <a href={pub.link} target="_blank">
+            {pub.title} — {pub.journal} ({pub.year})
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Compétences</div>
+  </div>
+
+  {
+    skills.map((group) => (
+      <div class="mb-4">
+        <p class="font-bold mb-2">{group.category}</p>
+        <div class="flex flex-wrap gap-2">
+          {group.items.map((item) => (
+            <span class="badge badge-outline">{item}</span>
+          ))}
+        </div>
+      </div>
+    ))
+  }
+
+  <div class="mt-10">
+    <a href="/my_cv.pdf" target="_blank" class="btn btn-primary btn-sm">Télécharger le CV (PDF)</a>
+  </div>
+</BaseLayout>
