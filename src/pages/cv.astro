@@ -2,30 +2,24 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import TimeLineElement from "../components/cv/TimeLine.astro";
 import { contactInfo, education, experience, skills, publications } from "../site_config";
+
+const sectionClass =
+  "text-2xl font-bold tracking-tight mt-14 mb-6 pb-2 border-b border-base-300";
 ---
 
 <BaseLayout title="CV" sideBarActiveItemID="cv">
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Profil</div>
-  </div>
+  <h1 class="text-3xl font-bold tracking-tight">Curriculum Vitæ</h1>
 
-  <div class="mb-10 text-justify">
-    {contactInfo.summary}
-  </div>
+  <h2 class={sectionClass + " !mt-8"}>Profil</h2>
+  <p class="leading-relaxed max-w-2xl">{contactInfo.summary}</p>
 
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Formation</div>
-  </div>
-
-  <div class="time-line-container grid gap-4 mb-10">
+  <h2 class={sectionClass}>Formation</h2>
+  <div class="time-line-container grid gap-4">
     {education.map((e) => <TimeLineElement title={e.title} subtitle={e.subtitle} />)}
   </div>
 
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Expérience</div>
-  </div>
-
-  <div class="time-line-container mb-10">
+  <h2 class={sectionClass}>Expérience</h2>
+  <div class="time-line-container">
     {
       experience.map((x) => (
         <TimeLineElement title={x.title} subtitle={x.subtitle}>
@@ -35,15 +29,12 @@ import { contactInfo, education, experience, skills, publications } from "../sit
     }
   </div>
 
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Publications</div>
-  </div>
-
-  <ul class="list-disc mx-6 mb-10 grid gap-2">
+  <h2 class={sectionClass}>Publications</h2>
+  <ul class="list-disc mx-6 grid gap-2">
     {
       publications.map((pub) => (
         <li>
-          <a href={pub.link} target="_blank">
+          <a href={pub.link} target="_blank" class="link link-hover">
             {pub.title} — {pub.journal} ({pub.year})
           </a>
         </li>
@@ -51,14 +42,11 @@ import { contactInfo, education, experience, skills, publications } from "../sit
     }
   </ul>
 
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Compétences</div>
-  </div>
-
+  <h2 class={sectionClass}>Compétences</h2>
   {
     skills.map((group) => (
       <div class="mb-4">
-        <p class="font-bold mb-2">{group.category}</p>
+        <p class="font-semibold mb-2">{group.category}</p>
         <div class="flex flex-wrap gap-2">
           {group.items.map((item) => (
             <span class="badge badge-outline">{item}</span>

@@ -7,9 +7,9 @@ const school = projects.filter((p) => p.type === "42 Paris");
 ---
 
 <BaseLayout title="Projets" sideBarActiveItemID="projects">
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Projets</div>
-    <p class="mt-2 opacity-80">
+  <div class="mb-2">
+    <h1 class="text-3xl font-bold tracking-tight">Projets</h1>
+    <p class="mt-2 text-base-content/60">
       Architecture logicielle, programmation système et algorithmique.
     </p>
   </div>
@@ -17,7 +17,9 @@ const school = projects.filter((p) => p.type === "42 Paris");
   {
     research.length > 0 && (
       <>
-        <div class="text-2xl w-full font-bold mb-4 mt-8">Recherche</div>
+        <h2 class="text-2xl font-bold tracking-tight mt-12 mb-6 pb-2 border-b border-base-300">
+          Recherche
+        </h2>
         <div class="grid md:grid-cols-2 gap-4">
           {research.map((p) => (
             <a
@@ -27,11 +29,11 @@ const school = projects.filter((p) => p.type === "42 Paris");
             >
               <div class="card-body">
                 <div class="flex items-center gap-2">
-                  <span class="badge badge-primary badge-outline">{p.type}</span>
+                  <span class="badge badge-outline">{p.type}</span>
                   {p.status && <span class="badge badge-ghost">{p.status}</span>}
                 </div>
-                <h2 class="card-title">{p.title}</h2>
-                <p class="opacity-80">{p.description}</p>
+                <h3 class="card-title">{p.title}</h3>
+                <p class="text-base-content/80">{p.description}</p>
                 <div class="flex flex-wrap gap-2 mt-2">
                   {p.tech.map((t) => (
                     <span class="badge badge-sm badge-outline">{t}</span>
@@ -48,7 +50,9 @@ const school = projects.filter((p) => p.type === "42 Paris");
   {
     school.length > 0 && (
       <>
-        <div class="text-2xl w-full font-bold mb-4 mt-10">École 42 Paris</div>
+        <h2 class="text-2xl font-bold tracking-tight mt-14 mb-6 pb-2 border-b border-base-300">
+          École 42 Paris
+        </h2>
         <div class="grid md:grid-cols-2 gap-4">
           {school.map((p) => (
             <a
@@ -58,11 +62,11 @@ const school = projects.filter((p) => p.type === "42 Paris");
             >
               <div class="card-body">
                 <div class="flex items-center gap-2">
-                  <span class="badge badge-secondary badge-outline">{p.type}</span>
+                  <span class="badge badge-outline">{p.type}</span>
                   {p.status && <span class="badge badge-ghost">{p.status}</span>}
                 </div>
-                <h2 class="card-title">{p.title}</h2>
-                <p class="opacity-80">{p.description}</p>
+                <h3 class="card-title">{p.title}</h3>
+                <p class="text-base-content/80">{p.description}</p>
                 <div class="flex flex-wrap gap-2 mt-2">
                   {p.tech.map((t) => (
                     <span class="badge badge-sm badge-outline">{t}</span>
